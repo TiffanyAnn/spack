@@ -431,6 +431,13 @@ def mutable_config(tmpdir_factory, configuration_dir, monkeypatch):
     # that will compromise subsequent tests if compilers.yaml is modified
     monkeypatch.setattr(spack.compilers, '_cache_config_file', [])
 
+    # Set variables needed for tests to run
+    # values should not be tied to any specific
+    cfg.set('config:build_jobs',
+            spack.config.get('config:build_jobs'))
+    cfg.set('config:template_dirs',
+            spack.config.get('config:template_dirs'))
+
     with use_configuration(cfg):
         yield cfg
 
